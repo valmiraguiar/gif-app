@@ -24,4 +24,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "GIF App"
 include(":app")
- 
+include(":core")
