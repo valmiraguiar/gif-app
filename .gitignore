@@ -34,3 +34,5 @@ google-services.json
 *.hprof
 
 gradle/gradle-daemon-jvm.properties
+
+apikey.properties
