@@ -1,7 +1,16 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.ksp)
+}
+
+val apikeyProperties = Properties().apply {
+    val apikeyPropertiesFile = rootProject.file("apikey.properties")
+    if (apikeyPropertiesFile.exists()) {
+        load(apikeyPropertiesFile.inputStream())
+    }
 }
 
 android {
@@ -20,6 +29,9 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "BASE_URL", "\"https://api.giphy.com\"")
+        buildConfigField("String", "API_KEY", "${apikeyProperties["API_KEY"] ?: ""}")
     }
 
     buildTypes {
@@ -37,6 +49,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 }
 
@@ -70,11 +83,6 @@ dependencies {
     implementation(libs.dagger.hilt.android)
     implementation(libs.hilt.navigation.compose)
     ksp(libs.dagger.hilt.compiler)
-
-    // Retrofit + OkHttp
-    implementation(libs.retrofit)
-    implementation(libs.retrofit.converter.gson)
-    implementation(libs.okhttp.logging.interceptor)
 
     // RoomDB
     implementation(libs.androidx.room.runtime)
