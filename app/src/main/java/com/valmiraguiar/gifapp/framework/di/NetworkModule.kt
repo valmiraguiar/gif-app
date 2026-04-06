@@ -1,7 +1,8 @@
 package com.valmiraguiar.gifapp.framework.di
 
-import com.valmiraguiar.core.data.constants.NetworkConstants.CONNECT_TIMEOUT_SECONDS
-import com.valmiraguiar.core.data.constants.NetworkConstants.READ_TIMEOUT_SECONDS
+import com.valmiraguiar.core.data.network.constants.NetworkConstants.CONNECT_TIMEOUT_SECONDS
+import com.valmiraguiar.core.data.network.constants.NetworkConstants.READ_TIMEOUT_SECONDS
+import com.valmiraguiar.core.data.network.interceptor.AuthorizationInterceptor
 import com.valmiraguiar.gifapp.BuildConfig
 import dagger.Module
 import dagger.Provides
@@ -33,11 +34,20 @@ object NetworkModule {
     }
 
     @Provides
+    fun provideAuthorizationInterceptor(): AuthorizationInterceptor {
+        return AuthorizationInterceptor(
+            apiKey = BuildConfig.API_KEY
+        )
+    }
+
+    @Provides
     fun provideOkHttpClient(
-        loggingInterceptor: HttpLoggingInterceptor
+        loggingInterceptor: HttpLoggingInterceptor,
+        authorizationInterceptor: AuthorizationInterceptor
     ): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
+            .addInterceptor(authorizationInterceptor)
             .readTimeout(READ_TIMEOUT_SECONDS, TimeUnit.SECONDS)
             .connectTimeout(CONNECT_TIMEOUT_SECONDS, TimeUnit.SECONDS)
             .build()
