@@ -39,4 +39,6 @@ apikey.properties
 
 # Detekt reports
 **/reports/detekt/
-.detekt/
+**/detekt.html
+**/detekt.xml
+**/detekt.txt
