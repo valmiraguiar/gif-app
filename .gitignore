@@ -36,3 +36,7 @@ google-services.json
 gradle/gradle-daemon-jvm.properties
 
 apikey.properties
+
+# Detekt reports
+**/reports/detekt/
+.detekt/
