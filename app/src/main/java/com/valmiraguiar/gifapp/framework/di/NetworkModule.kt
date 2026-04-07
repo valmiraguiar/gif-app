@@ -1,9 +1,9 @@
 package com.valmiraguiar.gifapp.framework.di
 
-import com.valmiraguiar.core.data.network.constants.NetworkConstants.CONNECT_TIMEOUT_SECONDS
-import com.valmiraguiar.core.data.network.constants.NetworkConstants.READ_TIMEOUT_SECONDS
-import com.valmiraguiar.core.data.network.interceptor.AuthorizationInterceptor
 import com.valmiraguiar.gifapp.BuildConfig
+import com.valmiraguiar.gifapp.framework.network.constants.NetworkConstants.CONNECT_TIMEOUT_SECONDS
+import com.valmiraguiar.gifapp.framework.network.constants.NetworkConstants.READ_TIMEOUT_SECONDS
+import com.valmiraguiar.gifapp.framework.network.interceptor.AuthorizationInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
