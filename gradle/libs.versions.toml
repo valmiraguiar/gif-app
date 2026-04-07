@@ -23,6 +23,8 @@ coroutinesTestVersion = "1.10.2"
 archCoreTestingVersion = "2.2.0"
 detektVersion = "1.23.8"
 jetbrainsKotlinJvm = "2.2.10"
+pagingVersion = "3.3.6"
+coilVersion = "2.7.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -56,6 +58,10 @@ mockk = { group = "io.mockk", name = "mockk", version.ref = "mockkVersion" }
 kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutinesTestVersion" }
 androidx-arch-core-testing = { group = "androidx.arch.core", name = "core-testing", version.ref = "archCoreTestingVersion" }
 dagger-hilt-android-testing = { group = "com.google.dagger", name = "hilt-android-testing", version.ref = "daggerHiltVersion" }
+androidx-paging-runtime = { group = "androidx.paging", name = "paging-runtime", version.ref = "pagingVersion" }
+androidx-paging-compose = { group = "androidx.paging", name = "paging-compose", version.ref = "pagingVersion" }
+androidx-paging-common = { group = "androidx.paging", name = "paging-common", version.ref = "pagingVersion" }
+coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coilVersion" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -63,4 +69,4 @@ kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "ko
 ksp = { id = "com.google.devtools.ksp", version.ref = "kspVersion" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref="detektVersion"}
 jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrainsKotlinJvm" }
-
+hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "daggerHiltVersion" }

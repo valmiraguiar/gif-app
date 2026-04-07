@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt.android)
 }
 
 val apikeyProperties = Properties().apply {
@@ -78,6 +79,11 @@ dependencies {
 
     // Navigation
     implementation(libs.androidx.navigation)
+
+    //Paging3
+    implementation(libs.androidx.paging.runtime)
+    implementation(libs.androidx.paging.compose)
+    implementation(libs.coil.compose)
 
     // Dagger/Hilt
     implementation(libs.dagger.hilt.android)

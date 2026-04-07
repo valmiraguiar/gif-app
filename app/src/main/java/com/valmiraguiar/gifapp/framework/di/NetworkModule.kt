@@ -4,6 +4,7 @@ import com.valmiraguiar.gifapp.BuildConfig
 import com.valmiraguiar.gifapp.framework.network.constants.NetworkConstants.CONNECT_TIMEOUT_SECONDS
 import com.valmiraguiar.gifapp.framework.network.constants.NetworkConstants.READ_TIMEOUT_SECONDS
 import com.valmiraguiar.gifapp.framework.network.interceptor.AuthorizationInterceptor
+import com.valmiraguiar.gifapp.framework.network.remote.GifApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -63,11 +64,12 @@ object NetworkModule {
     fun provideRetrofit(
         okHttpClient: OkHttpClient,
         converterFactory: GsonConverterFactory
-    ): Retrofit {
+    ): GifApi {
         return Retrofit.Builder()
             .baseUrl(BuildConfig.BASE_URL)
             .client(okHttpClient)
             .addConverterFactory(converterFactory)
             .build()
+            .create(GifApi::class.java)
     }
 }
