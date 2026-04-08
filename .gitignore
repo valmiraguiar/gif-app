@@ -1,6 +1,7 @@
 # Gradle files
 .gradle/
 build/
+**/build/
 
 # Local configuration file (sdk path, etc)
 local.properties
@@ -34,11 +35,10 @@ google-services.json
 *.hprof
 
 gradle/gradle-daemon-jvm.properties
-
 apikey.properties
 
 # Detekt reports
-**/reports/detekt/
+**/reports/detekt/**
 **/detekt.html
 **/detekt.xml
 **/detekt.txt
