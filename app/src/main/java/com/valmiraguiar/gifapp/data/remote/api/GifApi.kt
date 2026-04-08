@@ -1,6 +1,6 @@
-package com.valmiraguiar.gifapp.framework.network.remote
+package com.valmiraguiar.gifapp.data.remote.api
 
-import com.valmiraguiar.core.network.response.TrendingGifListResponse
+import com.valmiraguiar.gifapp.data.remote.dto.TrendingGifListResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 
