@@ -85,6 +85,11 @@ dependencies {
     implementation(libs.androidx.paging.compose)
     implementation(libs.coil.compose)
 
+    // Network
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.converter.gson)
+    implementation(libs.okhttp.logging.interceptor)
+
     // Dagger/Hilt
     implementation(libs.dagger.hilt.android)
     implementation(libs.hilt.navigation.compose)

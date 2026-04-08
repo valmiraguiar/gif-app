@@ -1,4 +1,4 @@
-package com.valmiraguiar.gifapp.framework.network.interceptor
+package com.valmiraguiar.gifapp.data.remote.interceptor
 
 import okhttp3.Interceptor
 import okhttp3.Response
