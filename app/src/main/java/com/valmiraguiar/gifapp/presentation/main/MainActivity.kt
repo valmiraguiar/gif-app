@@ -1,5 +1,6 @@
 package com.valmiraguiar.gifapp.presentation.main
 
+import android.os.Build.VERSION.SDK_INT
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -11,11 +12,14 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
+import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
+import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridItemSpan
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -23,6 +27,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -32,7 +37,11 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
+import coil.ImageLoader
 import coil.compose.AsyncImage
+import coil.decode.GifDecoder
+import coil.decode.ImageDecoderDecoder
+import coil.request.ImageRequest
 import com.valmiraguiar.core.domain.model.Gif
 import com.valmiraguiar.gifapp.ui.theme.GIFAppTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -76,10 +85,12 @@ private fun TrendingGifRoute(
             modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp)
         )
 
-        LazyColumn(
+        LazyVerticalStaggeredGrid(
+            columns = StaggeredGridCells.Fixed(2),
             modifier = Modifier.fillMaxSize(),
-            contentPadding = PaddingValues(16.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp)
+            contentPadding = PaddingValues(start = 16.dp, top = 4.dp, end = 16.dp, bottom = 16.dp),
+            verticalItemSpacing = 12.dp,
+            horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             items(
                 count = gifs.itemCount,
@@ -91,7 +102,7 @@ private fun TrendingGifRoute(
             }
 
             if (gifs.loadState.append is LoadState.Loading) {
-                item {
+                item(span = StaggeredGridItemSpan.FullLine) {
                     LoadingRow()
                 }
             }
@@ -120,7 +131,9 @@ fun GifCardPreview() {
                 username = "giphy",
                 altText = "A cat dancing",
                 pageUrl = "https://giphy.com",
-                imageUrl = "https://media.giphy.com/media/ICOgUNjpvO0PC/giphy.gif"
+                imageUrl = "https://media.giphy.com/media/ICOgUNjpvO0PC/giphy.webp",
+                width = 480,
+                height = 360
             )
         )
     }
@@ -128,19 +141,45 @@ fun GifCardPreview() {
 
 @Composable
 private fun GifCard(gif: Gif) {
+    val context = androidx.compose.ui.platform.LocalContext.current
+    val imageLoader = remember(context) {
+        ImageLoader.Builder(context)
+            .components {
+                if (SDK_INT >= SDK_28) {
+                    add(ImageDecoderDecoder.Factory())
+                } else {
+                    add(GifDecoder.Factory())
+                }
+            }
+            .crossfade(true)
+            .respectCacheHeaders(false)
+            .build()
+    }
+    val imageRequest = remember(context, gif.imageUrl, gif.imageUrl) {
+        ImageRequest.Builder(context)
+            .data(gif.imageUrl)
+            .crossfade(true)
+            .build()
+    }
+
     Surface(
         tonalElevation = 2.dp,
         shape = MaterialTheme.shapes.large
     ) {
-        Column(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(12.dp)
+        ) {
             AsyncImage(
-                model = gif.imageUrl,
+                model = imageRequest,
+                imageLoader = imageLoader,
                 contentDescription = gif.altText.ifBlank { gif.title },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(220.dp)
+                    .aspectRatio(gif.aspectRatio)
                     .clip(MaterialTheme.shapes.medium),
-                contentScale = ContentScale.Crop
+                contentScale = ContentScale.FillWidth
             )
             Spacer(modifier = Modifier.height(12.dp))
             Text(
@@ -169,7 +208,9 @@ private fun LoadingScreen(modifier: Modifier = Modifier) {
 @Composable
 private fun LoadingRow() {
     Box(
-        modifier = Modifier.fillMaxWidth().padding(vertical = 16.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 16.dp),
         contentAlignment = Alignment.Center
     ) {
         CircularProgressIndicator()
@@ -189,3 +230,8 @@ private fun ErrorState(
         )
     }
 }
+
+private val Gif.aspectRatio: Float
+    get() = width.toFloat() / height.coerceAtLeast(1).toFloat()
+
+private const val SDK_28 = 28

@@ -6,5 +6,7 @@ data class Gif(
     val username: String,
     val altText: String,
     val pageUrl: String,
-    val imageUrl: String
+    val imageUrl: String,
+    val width: Int,
+    val height: Int
 )
