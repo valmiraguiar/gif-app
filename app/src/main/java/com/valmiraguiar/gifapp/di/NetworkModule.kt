@@ -1,10 +1,10 @@
-package com.valmiraguiar.gifapp.framework.di
+package com.valmiraguiar.gifapp.di
 
 import com.valmiraguiar.gifapp.BuildConfig
-import com.valmiraguiar.gifapp.framework.network.constants.NetworkConstants.CONNECT_TIMEOUT_SECONDS
-import com.valmiraguiar.gifapp.framework.network.constants.NetworkConstants.READ_TIMEOUT_SECONDS
-import com.valmiraguiar.gifapp.framework.network.interceptor.AuthorizationInterceptor
-import com.valmiraguiar.gifapp.framework.network.remote.GifApi
+import com.valmiraguiar.gifapp.data.remote.api.GifApi
+import com.valmiraguiar.gifapp.data.remote.constants.NetworkConstants.CONNECT_TIMEOUT_SECONDS
+import com.valmiraguiar.gifapp.data.remote.constants.NetworkConstants.READ_TIMEOUT_SECONDS
+import com.valmiraguiar.gifapp.data.remote.interceptor.AuthorizationInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -61,7 +61,7 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideRetrofit(
+    fun provideGifApi(
         okHttpClient: OkHttpClient,
         converterFactory: GsonConverterFactory
     ): GifApi {

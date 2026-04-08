@@ -1,4 +1,4 @@
-package com.valmiraguiar.gifapp.framework.network.constants
+package com.valmiraguiar.gifapp.data.remote.constants
 
 object NetworkConstants {
     const val CONNECT_TIMEOUT_SECONDS = 30L

@@ -1,4 +1,4 @@
-package com.valmiraguiar.gifapp.framework.network.response
+package com.valmiraguiar.gifapp.data.remote.dto
 
 import com.google.gson.annotations.SerializedName
 
@@ -10,5 +10,5 @@ data class ImageDataResponse(
     @SerializedName("height") val height: String,
     @SerializedName("width") val width: String,
     @SerializedName("url") val url: String,
-    @SerializedName("webp") val webp: String
+    @SerializedName("webp") val webp: String?
 )
