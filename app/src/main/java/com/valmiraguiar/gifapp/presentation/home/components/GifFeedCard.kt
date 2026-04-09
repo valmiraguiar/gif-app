@@ -9,11 +9,9 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -52,7 +50,6 @@ import coil.request.ImageRequest
 import com.valmiraguiar.core.domain.model.Gif
 import com.valmiraguiar.gifapp.presentation.common.components.GlassSurface
 import com.valmiraguiar.gifapp.presentation.home.preview.HomePreviewData
-import com.valmiraguiar.gifapp.ui.theme.AccentMint
 import com.valmiraguiar.gifapp.ui.theme.GIFAppTheme
 import com.valmiraguiar.gifapp.ui.theme.GlassDanger
 import com.valmiraguiar.gifapp.ui.theme.GlassDangerContainer
@@ -105,34 +102,6 @@ fun GifFeedCard(
                         },
                     contentScale = ContentScale.Crop
                 )
-
-                GlassSurface(
-                    modifier = Modifier
-                        .padding(12.dp)
-                        .align(Alignment.TopStart),
-                    cornerRadius = 18.dp,
-                    contentPadding = PaddingValues(
-                        horizontal = 12.dp,
-                        vertical = 8.dp
-                    )
-                ) {
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(8.dp)
-                    ) {
-                        Box(
-                            modifier = Modifier
-                                .size(8.dp)
-                                .clip(CircleShape)
-                                .background(AccentMint)
-                        )
-                        Text(
-                            text = "For loop",
-                            style = MaterialTheme.typography.labelMedium,
-                            color = MaterialTheme.colorScheme.onSurface
-                        )
-                    }
-                }
 
                 FavoriteOverlayButton(
                     isFavorite = isFavorite,
@@ -200,9 +169,10 @@ private fun FavoriteOverlayButton(
             targetState = isFavorite,
             transitionSpec = {
                 fadeIn(tween(TRANSITION_DURATION_TIME_IN_MILLIS)) togetherWith
-                    fadeOut(tween(FADE_OUT_TIME_IN_MILLIS))
+                        fadeOut(tween(FADE_OUT_TIME_IN_MILLIS))
             },
-            label = "favorite-card-icon"
+            label = "favorite-card-icon",
+            modifier = Modifier.align(Alignment.Center)
         ) { selected ->
             Icon(
                 imageVector = if (selected) Icons.Rounded.Favorite else Icons.Rounded.FavoriteBorder,
