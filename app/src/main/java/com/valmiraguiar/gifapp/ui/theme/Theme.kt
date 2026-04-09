@@ -1,53 +1,46 @@
 package com.valmiraguiar.gifapp.ui.theme
 
-import android.os.Build
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.dynamicDarkColorScheme
-import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.LocalContext
 
 private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
+    primary = AccentBlue,
+    secondary = AccentMint,
+    tertiary = AccentSand,
+    background = NightInk,
+    surface = NightSlate,
+    surfaceVariant = NightPanel,
+    onPrimary = NightInk,
+    onSecondary = NightInk,
+    onTertiary = NightInk,
+    onBackground = GlassWhite,
+    onSurface = GlassWhite,
+    onSurfaceVariant = GlassWhite.copy(alpha = 0.72f)
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
-
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-     */
+    primary = NightSlate,
+    secondary = AccentBlue,
+    tertiary = AccentSand,
+    background = DaySky,
+    surface = DayMist,
+    surfaceVariant = GlassWhite,
+    onPrimary = GlassWhite,
+    onSecondary = NightInk,
+    onTertiary = NightInk,
+    onBackground = NightInk,
+    onSurface = NightInk,
+    onSurfaceVariant = NightInk.copy(alpha = 0.68f)
 )
 
 @Composable
 fun GIFAppTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
+    darkTheme: Boolean = true,
     content: @Composable () -> Unit
 ) {
-    val colorScheme = when {
-        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
-            val context = LocalContext.current
-            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
-        }
-
-        darkTheme -> DarkColorScheme
-        else -> LightColorScheme
-    }
+    val colorScheme = if (darkTheme) DarkColorScheme else LightColorScheme
 
     MaterialTheme(
         colorScheme = colorScheme,

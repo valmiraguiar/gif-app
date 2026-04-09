@@ -23,11 +23,11 @@ subprojects {
         apply(plugin = "io.gitlab.arturbosch.detekt")
     }
 
-    plugins.withId("io.gitlab.arturbosch.detekt") {
-        tasks.matching { it.name == "preBuild" }.configureEach {
-            dependsOn("detekt")
-        }
-    }
+//    plugins.withId("io.gitlab.arturbosch.detekt") {
+//        tasks.matching { it.name == "preBuild" }.configureEach {
+//            dependsOn("detekt")
+//        }
+//    }
 
     plugins.withId("io.gitlab.arturbosch.detekt") {
         tasks.matching { it.name == "check" }.configureEach {
