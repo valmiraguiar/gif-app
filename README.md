@@ -68,45 +68,6 @@ The presentation layer uses:
 
 This keeps the screen predictable, testable, and scalable without pushing business logic into composables.
 
-## Project Structure
-
-```text
-core/
-  domain/
-    model/
-    repository/
-    usecase/
-
-app/
-  data/
-    datasource/
-    paging/
-    remote/
-      api/
-      constants/
-      dto/
-      interceptor/
-      mapper/
-    repository/
-
-  presentation/
-    app/
-    common/
-      components/
-    home/
-      components/
-      event/
-      preview/
-      screen/
-      state/
-      viewmodel/
-    main/
-    navigation/
-
-  ui/
-    theme/
-```
-
 ## Setup
 
 ### 1. Clone the project
